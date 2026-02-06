@@ -1,0 +1,46 @@
+name: "Zig Build"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Zig Build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup zig environment
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Run zig build
+        run: zig build -Doptimize=ReleaseSmall
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aarch64-linux
+          path: zig-out/aarch64-linux-musl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aarch64-macos
+          path: zig-out/aarch64-macos.11.0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x86_64-linux
+          path: zig-out/x86_64-linux-musl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x86_64-macos
+          path: zig-out/x86_64-macos.10.7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x86_64-windows
+          path: zig-out/x86_64-windows-gnu
