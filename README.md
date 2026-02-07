@@ -40,7 +40,7 @@ e.g. (for macOS users)
 ```shell
 subkg patch '/Applications/Sublime Merge.app/Contents/MacOS/sublime_merge'
 
-subkg keygen -n hello -t bundle -i 00000000 -s 1026
+subkg keygen -n hello -t bundle -i 88888888 -s 1026
 
 # only needed on macOS
 codesign -f -s - '/Applications/Sublime Merge.app/Contents/MacOS/sublime_merge'
