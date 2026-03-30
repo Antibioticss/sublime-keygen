@@ -288,6 +288,11 @@ int patch(const char *path) {
         /* no extra needed for text 4200 and merge 2120 */
 
         /* Windows patches */
+        /* for merge 2123 */
+        // xor    al, 0xd7 ; -> 0x1f
+        add_patch((u8[]){0x34,0xd7,0x41,0x8A}, (u8[]){0x34,0x1f,0x41,0x8A}, 4, 1);
+        // xor    cl, 0xa8 ; -> 0x06
+        add_patch((u8[]){0x80,0xf1,0xa8}, (u8[]){0x80,0xf1,0x06}, 3, 1);
         /* no extra needed for text 4200, merge 2121, text 4199 and merge 2120 */
     }
 
