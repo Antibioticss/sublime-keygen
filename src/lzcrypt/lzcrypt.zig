@@ -8,9 +8,9 @@ fn qpow(b: u1024, e: u512, m: u512) u512 {
     var base: u1024 = b % mod;
     while (exp != 0) : (exp >>= 1) {
         if (exp & 1 == 1) {
-            res = res * base % mod;
+            res = (res * base) % mod;
         }
-        base = base * base % mod;
+        base = (base * base) % mod;
     }
 
     return @as(u512, @truncate(res));
@@ -27,7 +27,7 @@ const rsa_key = struct {
         const sp = qpow(m, self.dp, self.p);
         const sq = qpow(m, self.dq, self.q);
         const diff = if (sp > sq) sp - sq else sp + (self.p - sq % self.p);
-        const h = @as(u1024, self.qinv) * diff % self.p;
+        const h = (@as(u1024, self.qinv) * diff) % self.p;
         const c = sq + self.q * h;
         return c;
     }
